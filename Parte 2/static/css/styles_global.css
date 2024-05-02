@@ -1,0 +1,51 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+:root {
+    --title-color: #241400;
+    --color-purple: #D6BCBC;
+    --color-text: #241400;
+    --color-text-white: #090000;
+    --color-background: #f6f4f2;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--color-background);
+}
+
+h1 {
+    font-weight: 900;
+    color: var(--title-color);
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+#header, #localization, 
+#presentation, 
+#who_we_are, 
+#download, 
+#nav_categories,
+footer {
+    overflow-x: hidden;
+}
+
+.general_formatting {
+    margin: 100px auto;
+}
+
+@media (max-width: 750px) {
+    .general_formatting {
+        margin: 50px auto;
+    }
+}

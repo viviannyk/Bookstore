@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="Khatly">
+    <meta name="description" content="Loja de livros, cadastro de vendedores">
+    <meta name="keywords" content="livros, editora, escritor, vendedor">
+    <link rel="shortcut icon" href="{{url_for('static', filename='img/icon/book_icon.svg')}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/styles_global.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/cadastrar_cliente/cadastrar_cliente.css')}}">
+
+    <title>Cadastro de Vendedor</title>
+</head>
+
+<body>
+    <header>
+        <a href="./index.html">
+            <img src="{{url_for('static', filename='img/icon/vk_icon.svg')}}" alt="Logo" id="logo">
+            <span>Bookstore</span>
+        </a>
+    </header>
+
+    <!-- V libras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
+    <section id="input_materialize">
+        <form method="POST" action="/cadastro_vendedor" id="form_create_register" class="conteiner" data-anime="left">
+                <span id="title_create_register"> Cadastro de Cliente</span>
+            </div>
+            <div class="form_group field">
+                <input type="text" class="form_field" placeholder="Nome completo" name="nome_vendedor" id="name" required autocomplete="off" />
+                <label for="name" class="form_label">Nome completo</label>
+            </div>
+            <div class="form_group field">
+                <input type="text" class="form_field" placeholder="CPF" name="cpf_vendedor" id="cpf" required autocomplete="off" />
+                <label for="cpf" class="form_label">CPF</label>
+            </div>
+    
+            </div>
+            <div class="form_group field">
+                <input type="text" class="form_field" placeholder="Telefone" name="telefone_vendedor" id="phone" required autocomplete="off" />
+                <label for="phone" class="form_label">Telefone</label>
+            </div>
+            <div class="form_group field">
+                <input type="email" class="form_field" placeholder="E-mail" name="email_vendedor" id="e_mail_register" required autocomplete="off" />
+                <label for="e_mail_register" class="form_label">E-mail</label>
+            </div>
+            <div class="form_group field">
+                <input type="password" class="form_field" placeholder="Senha" name="senha_register" id="senha_register"
+                    required autocomplete="off" />
+                <label for="senha_register" class="form_label">Senha</label>
+            </div>
+    
+        
+            <button class="btn_submit" type="submit">Enviar</button>
+            <div class="funcoes">
+                <a href="homepage_admin.html">Voltar</a>
+            
+        </form>
+    </section>
+
+    <script src="{{url_for('static', filename='./js/login_registration.js')}}"></script>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+</body>
+
+</html>

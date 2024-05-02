@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar cliente</title>
+</head>
+<body>
+    <style> body{
+        margin: 0px;
+        background-color: #fef7e1;
+    }
+    </style>
+    <div>
+        <p class="titulo">Alterar cadastro do cliente</p>
+        <style>
+            p{
+                color: white;
+                size: 50px;
+                background-color: #e2aa87;
+                margin: 0px;
+                text-align: center;
+                padding: 50px ;
+                border-radius: 0px;
+                font-size: 80px;
+                border: 10px;
+            }
+        </style>
+    </div>
+
+    
+    <div class="container">
+        <form method="POST" action="/alterar_cliente">
+            <input type="text" required name="id" placeholder="Digite o id do usuario que deseja fazer alteração"><br>
+            <input type="text" required name="nome_atlzd" placeholder="Nome atualizado"><br>
+            <input type="text" required name="cpf_atlzd" placeholder="CPF atualizado"><br>
+            <input type="text" required name="email_atlzd" placeholder="Email atualizado"><br>
+            <input type="text" required name="telefone_atlzd" placeholder="Telefone atualizado"><br>
+            <input type="text" required name="cidade_atlz" placeholder="Cidade atualizada"><br>
+            <button type="submit">Enviar</button>
+        </form>
+        <style>
+            .container{
+                text-align: center;
+                font-size: 2rem;
+            }
+        </style>
+    </div>
+
+
+    <div class="funcoes">
+        <a href="homepage_admin.html">Voltar</a>
+        <style>
+            .funcoes{
+                margin: 5rem;
+                text-align: center;
+            }
+            a{
+                color: white;
+                background-color: #ef8e7d;
+                padding: 2rem;
+                margin: 30px;
+                text-align: center;
+                font-size: 2rem;
+                text-decoration: none;
+                border-radius: 20px;
+                transition: 0.3s;
+            }
+            a:hover{
+                background-color: #c57667;
+            }
+        </style>
+    </div>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Cadastrar cliente</title>
+</head>
+<body>
+    <style> body{
+        margin: 0px;
+        background-color: #fef7e1;
+    }
+    </style>
+    <div>
+        <p class="titulo">Gerar Relatorio vendedores</p>
+        <style>
+            p{
+                color: white;
+                size: 50px;
+                background-color: #e2aa87;
+                margin: 0px;
+                text-align: center;
+                padding: 50px ;
+                border-radius: 0px;
+                font-size: 80px;
+                border: 10px;
+            }
+        </style>
+    </div>
+
+    
+    <div class="container">
+        <br>
+        <form method="post" action="/exibir_relatorio_vendedor_admin">
+            <legend>ID do vendedor</legend>
+            <input required name="id_vendedor" type="text" placeholder="ID"><br>
+            <legend>Data Inicial</legend>
+            <input required name="data_inicial" type="date"><br>
+            <legend>Data Final</legend>
+            <input required name="data_final" type="date"><br><br>
+            <button type="submit">Gerar Relatório</button><br>
+        </form><br>
+        <style>
+            .container{
+                text-align: center;
+                font-size: 2rem;
+            }
+        </style>
+    </div>
+
+
+    
+
+    <div class="container">
+        <table class="table table-bordered ">
+            <thead>
+                <th colspan="10"><br> RELATÓRIO DE VENDAS DOS FUNCIONÁRIOS <br><br> </th>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome do vendedor</th>
+                    <th>Numero de vendas</th>
+                    <th>Quantidade de livros vendidos</th>
+                    <th>Valor das vendas</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for relatorio in relatorio_vendedor %}
+                    <tr>
+                        <td>{{ relatorio[0] }}</td>
+                        <td>{{ relatorio[1] }}</td>
+                        <td>{{ relatorio[2] }}</td>
+                        <td>{{ relatorio[3] }}</td>
+                        <td>{{ relatorio[4] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+                
+        </table>
+        <style>
+            .container{
+                font-size: 20px;
+                text-align: center;
+            }
+        </style>
+    </div>
+
+    <div class="funcoes">
+        <a href="homepage_admin.html">Voltar</a>
+        <style>
+            .funcoes{
+                margin: 5rem;
+                text-align: center;
+            }
+            a{
+                color: white;
+                background-color: #ef8e7d;
+                padding: 2rem;
+                margin: 30px;
+                text-align: center;
+                font-size: 2rem;
+                text-decoration: none;
+                border-radius: 20px;
+                transition: 0.3s;
+            }
+            a:hover{
+                background-color: #c57667;
+            }
+        </style>
+        <style>
+            a{
+                color: white;
+                background-color: #ef8e7d;
+                padding: 2rem 10rem;
+                margin: 50px;
+                text-align: center;
+                font-size: 2rem;
+                text-decoration: none;
+                border-radius: 20px;
+            }
+        </style>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>
+
+
+

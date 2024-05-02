@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Khatly">
+    <meta name="description" content="Bookstore, livros de A a Z">
+    <meta name="keywords" content="livros, editora, escritor">
+    <title>Bookstore</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename= './img/icon/vk_icon.svg')}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static', filename='./css/home_page/header.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= './css/home_page/presentation.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= './css/home_page/nav_categories.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= './css/home_page/slider_multiple_items.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= './css/home_page/localization.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= './css/home_page/download.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= './css/home_page/who_we_are.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= './css/home_page/footer.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= './css/styles_global.css')}}">
+    <link rel="manifest" href={{url_for('static', filename= './js/manifest.json')}} />
+</head>
+
+<body>
+    <!-- 
+        Menu mobilie
+        https://www.youtube.com/watch?v=DnODupiIAiE
+        O menu mobilie eu adicionei uma estilização nele é acrescentei os ícones, input de pesquisa e deixando ele como um menu ancorado.
+     -->
+    <header id="header">
+        <a id="logo" href="./index.html">
+            <img src="{{ url_for('static', filename= './img/icon/vk_icon.svg')}}" alt="Ícone da loja">
+            <span>Bookstore</span>
+        </a>
+        <nav id="nav">
+
+            <button aria-label="Abrir Menu" id="btn_mobile" aria-haspopup="true" aria-controls="menu"
+                aria-expanded="false">
+                <span id="hamburger"></span>
+            </button>
+
+            <ul id="menu" role="menu">
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="#nav_categories">Categorias</a></li>
+                <li><a href="#slider_multiple_items">Livros</a></li>
+                <li><a href="#localization">About</a></li>
+            </ul>
+        </nav>
+        <div id="search_entry">
+            <input class="input" type="text" placeholder="Pesquise livros" pattern=".+" required />
+            <button class="submit_lente" type="submit">
+                <img src="{{url_for('static', filename= './img/icon/magnifying_glass_icon.svg')}}" alt="ícone de lupa">
+            </button>
+        </div>
+
+        <div id="icones_header">
+
+            <a href="./login_and_register.html">
+                <div id="user_login">
+                    <img src="{{url_for('static', filename= './img/icon/user-interface.png')}}" alt="Ícone de login da conta">
+                    <span>Login | Sign up</span>
+                </div>
+            </a>
+
+            <div id="heart_icon">
+                <img src="{{url_for('static', filename= './img/icon/heart.png')}}" alt="Ícone dos favoritos">
+            </div>
+
+            <div id="shopping_cart">
+                <img src="{{url_for('static',filename='./img/icon/shopping-cart.png')}}" alt="Ícone de carrinho de compra">
+                <span>R$ 0,00</span>
+            </div>
+        </div>
+
+    </header>
+
+    <!-- V libras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
+    <!-- 
+        As imagens de ilustração eu peguei no site:
+        https://undraw.co/
+        
+        Como diz no site e open source, não possui direito de imagem
+
+        "Você pode usar as ilustrações em qualquer projeto, 
+        comercial ou pessoal, sem atribuição ou quaisquer custos. (Katerina Limpitsoun, 2021)"
+
+     -->
+    <div id="presentation" class="general_formatting">
+        <div id="imgPresentation">
+            <img src="{{url_for('static', filename= './img/undraw_reading_re_29f8.svg')}}" alt="Ilustração de pessoa lendo livro">
+        </div>
+        <div id="presentationText">
+            <h1>Livros de A a Z</h1>
+            <p>Em nossa loja você encontra livros para todos os gostos. Uma grande variedade. Preços agradáveis.
+                Histórias interessantes.
+            </p>
+            <a href= "{{ url_for('livros_mais_vendidos') }}">Livros mais populares</a>
+        </div>
+    </div>
+
+                
+    <section id="who_we_are" class="general_formatting">
+        <h1>Quem nós somos</h1>
+        <p>
+            A Bookstore é uma livraria que atende pela sua loja física e pelo e commerce, por meio do website
+            www.bookstore.com e de nossa extensa comunidade online, também alcançamos leitores em todo o Brasil,
+            pessoas
+            tão entusiasmadas com os livros quanto nós.
+        </p>
+        <p>
+            Estamos alicerçados nos valores fundamentais da nossa empresa, que nos guiaram nos altos e baixos da
+            indústria de livreiros. O amor de cada funcionário pelos livros nos impulsiona para a frente.
+        </p>
+        <p>
+            Estamos ansiosos para um futuro repleto de muitas novas oportunidades, inovações e, claro, novos livros!
+        </p>
+    </section>
+
+    <footer>
+        <div>
+            <hr>
+        </div>
+        <div id="text_footer">
+            <div id="div_msg">
+                <div id="img_footer">
+                    <img src="{{url_for('static', filename= './img/icon/book_white_icon.svg')}}" alt="logo">
+                    <p>Bookstore</p>
+                </div>
+                <p>Os Livros nos dão asas para voar a lugares altos, supreendentes e inesquecíveis</p>
+            </div>
+            <div class="links_footer">
+                <h1> Links Rápidos</h1>
+                <ul>
+                    <li>
+                        <a href="./homepage_admin.html">
+                            <div id="adm">
+                                <img src="{{url_for('static', filename= './img/icon/angle-double-right.svg')}}"  alt="Ícone de dupla seta para direita">
+                                Administração</a>                                   
+                                </div>
+                            </a>
+                    </li>
+                    <li>
+                        <a href="./homepage_vendedor.html">
+                            <div id="vendedor">
+                            <img src="{{url_for('static', filename= './img/icon/angle-double-right.svg')}}" alt="Ícone de dupla seta para direita">
+                            Serviços</a>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/">
+                            <img src="{{url_for('static', filename= './img/icon/angle-double-right.svg')}}" alt="Ícone de dupla seta para direita">
+                            Projetos</a>
+                    </li>
+                    <li>
+                        <a href="/">
+                            <img src="{{url_for('static', filename= './img/icon/angle-double-right.svg')}}" alt="Ícone de dupla seta para direita"> Nosso
+                            time</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="links_footer">
+                <h1>Links Rápidos</h1>
+                <ul>
+                    <li><a href="/">
+                            <img src="{{url_for('static', filename= './img/icon/angle-double-right.svg')}}" alt="Ícone de dupla seta para direita"> Contate
+                            - Nos</a></li>
+                    <li><a href="/">
+                            <img src="{{url_for('static', filename= './img/icon/angle-double-right.svg')}}" alt="Ícone de dupla seta para direita">
+                            Blog</a>
+                    </li>
+                    <li><a href="/"><img src="{{url_for('static', filename= './img/icon/angle-double-right.svg')}}" alt="Ícone de dupla seta para direita">
+                            Nossa localização</a></li>
+                    <li><a href="/"><img src="{{url_for('static', filename= './img/icon/angle-double-right.svg')}}" alt="Ícone de dupla seta para direita">
+                            Entrega</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="social_networks">
+            <img src="{{url_for('static', filename= './img/icon/icon_youtube.svg')}}" alt="Ícone do youtube'">
+            <img src="{{url_for('static', filename= './img/icon/icon_instagram.svg')}}" alt="Ícone do instragram">
+            <img src="{{url_for('static', filename= './img/icon/icon_facebook.svg')}}" alt="Ícone do facebook">
+            <img src="{{url_for('static', filename= './img/icon/icon_twitter.svg')}}" alt="Ícone do twitter'
+        </div>
+        <div id="copyright">
+            <div>
+                <p>©copyright</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./js/header.js"></script>
+    <script src="./js/slider_multiple_items.js"></script>
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+
+</body>
+
+</html>

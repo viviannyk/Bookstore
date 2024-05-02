@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Gerar relatorio</title>
+</head>
+<body>
+    <style> body{
+        margin: 0px;
+        background-color: #fef7e1;
+    }
+    </style>
+    <div>
+        <p class="titulo">Gerar Relatorios</p>
+        <style>
+            p{
+                color: white;
+                size: 50px;
+                background-color: #e2aa87;
+                margin: 0px;
+                text-align: center;
+                padding: 50px ;
+                border-radius: 0px;
+                font-size: 80px;
+                border: 10px;
+            }
+        </style>
+    </div>
+
+    
+    <div class="container">
+        <form method="get" action="/exibir_relatorio">
+            <button type="submit">Clique aqui para gerar um relatorio geral</button>
+            <style>
+                button{
+                    margin: 2rem;
+                    border-radius: 20px;
+                    padding: 50px;
+                    background-color: #ffffff;
+                    font-size: 2rem;
+                }
+            </style>
+        </form>
+        <style>
+            .container{
+                text-align: center;
+                font-size: 2rem;
+            }
+        </style>
+    </div>
+
+
+    
+
+    <div class="container">
+        <table class="table table-bordered ">
+            <thead>
+                <th colspan="10"><br> CLIENTES CADASTRADOS NO SISTEMA <br><br> </th>
+            </thead>
+            <tbody>
+                <!------------Clientes------------>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>CPF</th>
+                            <th>Telefone</th>
+                            <th>Email</th>
+                            <th>Possuem desconto na loja</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for clientes in cliente %}
+                        <tr>
+                            <td>{{ clientes[0] }}</td>
+                            <td>{{ clientes[1] }}</td>
+                            <td>{{ clientes[2] }}</td>
+                            <td>{{ clientes[3] }}</td>
+                            <td>{{ clientes[4] }}</td>
+                            <td>{% if clientes[5] == 1 %}Sim{% elif clientes[5] == 0 %}Não{% endif %}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                
+                <!------------Livros------------>
+                
+                <th colspan="10"><br> LIVROS CADASTRADOS NO SISTEMA <br><br></th>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Categoria</th>
+                            <th>Nome</th>
+                            <th>Preço</th>
+                            <th>Fabricação</th>
+                            <th>Quantidade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for livros in livro %}
+                        <tr>
+                            <td>{{ livros[0] }}</td>
+                            <td>{% if livros[1] == 1 %}Fantasia{% elif livros[1] == 2 %}Ficção Científica{% elif livros[1] == 3 %}Educação{% endif %}</td>
+                            <td>{{ livros[2] }}</td>
+                            <td>R$ {{ livros[3] }}</td>
+                            <td>{{ livros[4] }}</td>
+                            <td>{{ livros[5] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                
+                <table class="table table-bordered">
+                    <!-- Conteúdo da tabela -->
+                    <tfoot>
+                        <tr>
+                            <th colspan="10"><br> RESUMO <br><br> </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left;" colspan="4">Total de clientes cadastrados</th>
+                            <td colspan="6">{{ total_clientes }}</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left;" colspan="4">Total de livros diferentes cadastrados</th>
+                            <td colspan="6">{{ total_livros_dif }}</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left;" colspan="4">Quantidade total de livros em estoque</th>
+                            <td colspan="6">{{ livros_total }}</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left;" colspan="4">Valor total dos itens armazenados no estoque</th>
+                            <td colspan="6">R$ {{ preco_total }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+        <style>
+            .container{
+                font-size: 20px;
+                text-align: center;
+            }
+        </style>
+    </div>
+
+    <div class="funcoes">
+        <a href="homepage_admin.html">Voltar</a>
+        <style>
+            .funcoes{
+                margin: 5rem;
+                text-align: center;
+            }
+            a{
+                color: white;
+                background-color: #ef8e7d;
+                padding: 2rem;
+                margin: 30px;
+                text-align: center;
+                font-size: 2rem;
+                text-decoration: none;
+                border-radius: 20px;
+                transition: 0.3s;
+            }
+            a:hover{
+                background-color: #c57667;
+            }
+        </style>
+        <style>
+            a{
+                color: white;
+                background-color: #ef8e7d;
+                padding: 2rem 10rem;
+                margin: 50px;
+                text-align: center;
+                font-size: 2rem;
+                text-decoration: none;
+                border-radius: 20px;
+            }
+        </style>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>
+
+
+

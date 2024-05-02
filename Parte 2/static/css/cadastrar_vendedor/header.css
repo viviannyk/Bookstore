@@ -1,0 +1,149 @@
+header>a {
+    width: 100%;
+    height: 80px;
+    background-color: #D6BCBC;
+    box-shadow: 0px 1px 5px 0px rgb(0 0 0 / 50%);
+    padding-left: 10px;
+}
+
+header>a {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    color: var(--color-text);
+}
+
+#logo {
+    max-width: 165px; /* Defina a largura máxima desejada */
+    max-height: 200px; 
+    margin-top: 35px;
+}
+
+#register_title{
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    font-size: 1.5rem;
+    margin-top: 20px; /* Adiciona margem superior */
+}
+#title_create_register {
+    font-size: 1.5rem;
+    padding-top: 50px; /* Adiciona padding superior */
+    color: var(--color-text);
+}
+
+.btn_submit{
+    width: 80%;
+    height: 42px;
+    margin-top: 30px;
+    cursor: pointer;
+    background-color: var(--color-purple);
+    border: 0px;
+    color: black;
+    border-radius: 5px;
+}
+.funcoes {
+    /* Estilos base do botão */
+    padding: 10px 20px; /* Ajuste conforme necessário */
+    color: white; /* Cor do texto */
+    border: none; /* Remover borda padrão */
+    cursor: pointer; /* Mudar o cursor para um ponteiro */
+    transition: all 0.3s ease; /* Adiciona uma transição suave */
+}
+
+.funcoes:hover {
+    /* Quando o mouse passa sobre o botão */
+    transform: scale(1.1); /* Aumenta o tamanho do botão */
+}
+#input_materialize{
+    width: 40%;
+    margin: 10vh auto;
+    background-color: white;
+    box-shadow: 0px 1px 5px 0px rgb(0 0 0 / 50%);
+    border-radius: 10px;
+    padding-bottom: 30px;
+}
+
+
+#input_materialize > form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+    font-size: 1rem;
+}
+
+.form_group {
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 20px;
+    width: 80%;
+    font-weight: 400;
+}
+
+.form_field {
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #9b9b9b;
+    outline: 0;
+    font-size: 1rem;
+    color: var(--color-text);
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.form_field::placeholder {
+    color: transparent;
+}
+
+.form_field:placeholder-shown~.form_label {
+    font-size: 1rem;
+    cursor: text;
+    top: 20px;
+}
+
+.form_label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #9b9b9b;
+}
+
+.form_field:focus {
+    padding-bottom: 6px;
+    border-color: var(--color-purple);
+    border-width: 3px;
+    border-image-slice: 1;
+}
+
+.form_field:focus~.form_label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: var(--color-purple);
+}
+
+
+.form_field:required, .form_field:invalid {
+    box-shadow: none;
+}
+
+@media (max-width: 1000px) {
+    #input_materialize{
+        width: 70%;
+    
+    }
+}
+
+@media (max-width: 700px) {
+    #input_materialize{
+        width: 90%;
+    
+    }
+}
