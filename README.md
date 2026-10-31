@@ -47,7 +47,7 @@ Livraria web feita com **Flask** e **MySQL**, com área para clientes, vendedore
 
 ## Como rodar
 
-Você vai precisar de Python 3.10 ou mais recente e de um servidor MySQL.
+Você vai precisar de Python 3.10 ou mais recente e do Docker.
 
 **1. Clone o repositório**
 
@@ -59,23 +59,24 @@ cd Bookstore
 **2. Instale as dependências**
 
 ```bash
-python -m venv venv
-venv\Scripts\activate        # Windows
-source venv/bin/activate     # Linux e macOS
-pip install flask mysql-connector-python
+python -m venv .venv
+.venv\Scripts\activate        # Windows
+source .venv/bin/activate     # Linux e macOS
+pip install flask -r data/requirements.txt
 ```
 
 **3. Prepare o banco de dados**
 
-O script do banco não está neste repositório, então é preciso ter um banco `livraria_bd` em `localhost` com estes objetos:
+Crie o arquivo `data/.env` a partir de `data/.env.example`, com a mesma senha configurada em [`Parte 2/app.py`](<Parte%202/app.py>). Depois, suba o MySQL e gere os dados fictícios:
 
-| Tipo       | Nome                                                                          |
-| ---------- | ----------------------------------------------------------------------------- |
-| Tabelas    | `cliente`, `vendedor`, `livro`, `pagamento`                           |
-| View       | `livros_mais_vendidos`                                                      |
-| Procedures | `realizar_compra`, `historico_de_compras`, `relatorio_de_vendas_mensal` |
+```bash
+docker compose -f data/docker-compose.yml up -d --wait
+python data/seed/seed.py
+```
 
-As credenciais de conexão ficam em [`Parte 2/app.py`](<Parte%202/app.py>). Ajuste-as para as do seu MySQL.
+O schema em [`data/sql/schema.sql`](data/sql/schema.sql) é aplicado automaticamente na primeira vez que o container sobe. O seed cria 500 clientes, 120 livros, 10 vendedores e 20 mil vendas em 2 anos. Para recomeçar do zero, rode `python data/seed/seed.py --reset`.
+
+Para entrar como cliente, use `demo@bookstore.local` e a senha `demo123`.
 
 **4. Inicie o servidor**
 
@@ -89,6 +90,11 @@ Depois é só abrir [http://localhost:5000](http://localhost:5000). Se o MySQL e
 ## Estrutura
 
 ```
+data/
+├── docker-compose.yml     # MySQL local
+├── sql/schema.sql         # Tabelas, view e procedures
+└── seed/seed.py           # Dados fictícios
+
 Parte 2/
 ├── app.py                 # Rotas e consultas ao banco
 ├── static/
