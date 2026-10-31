@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% import "_macros.html" as ui %}
+
+{% block titulo %}Clientes cadastrados{% endblock %}
+{% block titulo_tela %}Clientes cadastrados{% endblock %}
+
+{% block conteudo %}
+<form class="acoes" method="get" action="{{ acao }}">
+    <button class="botao" type="submit">Obter clientes cadastrados</button>
+</form>
+
+{% call ui.tabela(['ID', 'Nome', 'CPF', 'Telefone', 'Email']) %}
+    {% for clientes in cliente %}
+    <tr>
+        <td data-rotulo="ID">{{ clientes[0] }}</td>
+        <td data-rotulo="Nome">{{ clientes[1] }}</td>
+        <td data-rotulo="CPF">{{ clientes[2] }}</td>
+        <td data-rotulo="Telefone">{{ clientes[3] }}</td>
+        <td data-rotulo="Email">{{ clientes[4] }}</td>
+    </tr>
+    {% endfor %}
+{% endcall %}
+{% endblock %}

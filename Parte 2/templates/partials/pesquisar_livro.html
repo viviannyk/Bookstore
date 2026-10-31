@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% import "_macros.html" as ui %}
+
+{% block titulo %}Pesquisar livro{% endblock %}
+{% block titulo_tela %}Pesquisar Livro{% endblock %}
+
+{% block conteudo %}
+<form class="form form--duplo" method="POST" action="{{ acao }}">
+    {{ ui.campo('nome_livro', 'Pesquisar por nome', obrigatorio=false, placeholder='Nome do livro') }}
+    {{ ui.campo('local_fabric', 'Pesquisar pelo local de fabricação', obrigatorio=false, placeholder='Local de fabricação') }}
+    {{ ui.campo('preco_min', 'Preço mínimo', 'number', obrigatorio=false, extra='step="0.01"') }}
+    {{ ui.campo('preco_max', 'Preço máximo', 'number', obrigatorio=false, extra='step="0.01"') }}
+    {{ ui.select_categoria('categoria_livro', 'Pesquisar pela categoria', com_nenhum=true) }}
+    <label class="campo">
+        <span class="campo__rotulo">Pesquisar por quantidade disponível</span>
+        <input name="quantidade" type="range" id="qtd" min="0" max="100" step="1" value="100">
+        <span class="campo__dica" id="qtd_prod">Até 100 Produtos</span>
+    </label>
+    <div class="form__fim"><button class="botao" type="submit">Pesquisar</button></div>
+</form>
+
+{% if livro %}
+{% set maior_estoque = livro|map(attribute=5)|max %}
+<div class="lista">
+    {% for livros in livro %}{{ ui.card_livro(livros, loop.index, maior_estoque) }}{% endfor %}
+</div>
+{% endif %}
+{% endblock %}

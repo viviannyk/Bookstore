@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% import "_macros.html" as ui %}
+{% set papel = 'admin' %}
+
+{% block titulo %}{{ titulo_pagina }}{% endblock %}
+{% block tela_classe %}pagina--estreita{% endblock %}
+{% block titulo_tela %}{{ titulo_pagina }}{% endblock %}
+
+{% block conteudo %}
+<form class="form" method="POST" action="/cadastro_vendedor">
+    {{ ui.campo('nome_vendedor', 'Nome completo', extra='autocomplete="off"') }}
+    {{ ui.campo('cpf_vendedor', 'CPF', mascara='cpf', extra='autocomplete="off"') }}
+    {{ ui.campo('telefone_vendedor', 'Telefone', mascara='telefone', extra='autocomplete="off"') }}
+    {{ ui.campo('email_vendedor', 'E-mail', 'email', extra='autocomplete="off"') }}
+    {% if com_senha %}{{ ui.campo('senha_register', 'Senha', 'password', extra='autocomplete="off"') }}{% endif %}
+    <button class="botao botao--bloco" type="submit">Enviar</button>
+</form>
+{% endblock %}

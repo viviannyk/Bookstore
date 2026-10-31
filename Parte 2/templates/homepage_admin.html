@@ -1,74 +1,29 @@
-<!DOCTYPE html>
-<html lang="pt_BR">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu site Teste</title>
-</head>
-<body>
-    <style> body{
-        margin: 0px;
-        background-color: #fef7e1;
-    }
-    </style>
-    <div>
-        <p class="titulo">Livraria</p>
-        <p class="titulo">Painel do administrador</p>
-        <style>
-            p{
-                color: white;
-                size: 50px;
-                background-color: #D6BCBC;
-                margin: 0px;
-                text-align: center;
-                padding: 50px ;
-                border-radius: 0px;
-                font-size: 80px;
-                border: 10px;
-            }
-        </style>
-    </div>
+{% extends "base.html" %}
+{% import "_macros.html" as ui %}
+{% set papel = 'admin' %}
+{% set tem_busca = true %}
 
-    <div class="opções">
-        <a href="Cadastrar_vendedor_admin.html">Cadastrar vendedor</a>
-        <a href="Cadastrar_cliente_admin.html">Cadastrar cliente</a>
-        <a href="Alterar_cadastro_cliente_admin.html">Alterar cadastro do cliente</a>
-        <a href="Pesquisar_cliente_admin.html">Pesquisar cliente</a>
-        <a href="Remover_cliente_admin.html">Remover Cliente</a>
-        <a href="listar_all_clientes_admin.html">Listar todos os clientes cadastrados</a>
-        
-        <a href="Cadastrar_livro_admin.html">Cadastrar Livro</a>
-        <a href="Alterar_cadastro_livro_admin.html">Alterar cadastro do livro</a>
-        <a href="Pesquisar_livro_admin.html">Pesquisar livro</a>
-        <a href="Remover_livro_admin.html">Remover livro</a>
-        <a href="listar_all_livros_admin.html">Listar todos os livros cadastrados</a>
-        <a href="Gerar_relatorio_admin.html">Gerar Relatório geral</a>
-        <a href="Gerar_relatorio_vendedores_admin.html">Gerar Relatório de Vendedores</a>
-        <a href="/">Sair</a>
+{% block titulo %}Painel do administrador{% endblock %}
+{% block titulo_tela %}Painel do administrador{% endblock %}
 
-        <style>
-            .opções{
-                margin: 2rem;
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
-            }
+{% block conteudo %}
+{{ ui.abas([('clientes', 'Clientes'), ('livros', 'Livros'), ('relatorios', 'Relatórios')]) }}
+<div class="lista">
+    {{ ui.card_link('Cadastrar_vendedor_admin.html', 'Equipe', 'Cadastrar vendedor', 'Inclua um novo vendedor na loja.', 1, 'clientes') }}
+    {{ ui.card_link('Cadastrar_cliente_admin.html', 'Clientes', 'Cadastrar cliente', 'Inclua um novo cliente no sistema.', 2, 'clientes') }}
+    {{ ui.card_link('Alterar_cadastro_cliente_admin.html', 'Clientes', 'Alterar cadastro do cliente', 'Atualize os dados de um cliente.', 3, 'clientes') }}
+    {{ ui.card_link('Pesquisar_cliente_admin.html', 'Clientes', 'Pesquisar cliente', 'Encontre um cliente pelo nome.', 4, 'clientes') }}
+    {{ ui.card_link('Remover_cliente_admin.html', 'Clientes', 'Remover Cliente', 'Exclua um cliente pelo ID.', 1, 'clientes') }}
+    {{ ui.card_link('listar_all_clientes_admin.html', 'Clientes', 'Listar clientes', 'Todos os clientes cadastrados.', 2, 'clientes') }}
+    {{ ui.card_link('Cadastrar_livro_admin.html', 'Livros', 'Cadastrar Livro', 'Inclua um novo título no catálogo.', 3, 'livros') }}
+    {{ ui.card_link('Alterar_cadastro_livro_admin.html', 'Livros', 'Alterar cadastro do livro', 'Atualize preço, estoque e categoria.', 4, 'livros') }}
+    {{ ui.card_link('Pesquisar_livro_admin.html', 'Livros', 'Pesquisar livro', 'Filtre por nome, preço, local e categoria.', 1, 'livros') }}
+    {{ ui.card_link('Remover_livro_admin.html', 'Livros', 'Remover livro', 'Exclua um livro pelo ID.', 2, 'livros') }}
+    {{ ui.card_link('listar_all_livros_admin.html', 'Livros', 'Listar livros', 'Todos os livros cadastrados.', 3, 'livros') }}
+    {{ ui.card_link('Gerar_relatorio_admin.html', 'Relatórios', 'Relatório geral', 'Clientes, livros e valor em estoque.', 4, 'relatorios') }}
+    {{ ui.card_link('Gerar_relatorio_vendedores_admin.html', 'Relatórios', 'Relatório de Vendedores', 'Vendas por vendedor em um período.', 1, 'relatorios') }}
+</div>
+<div class="acoes"><a class="botao botao--suave" href="/">Sair</a></div>
+{% endblock %}
 
-            a{
-                color: white;
-                background-color: #D6BCBC;
-                padding: 2rem;
-                margin: 30px;
-                text-align: center;
-                font-size: 2rem;
-                text-decoration: none;
-                border-radius: 20px;
-                transition: 0.3s;
-            }
-            a:hover{
-                background-color: #c57667;
-            }
-        </style>
-    </div>
-</body>
-</html>
+{% block voltar %}{% endblock %}

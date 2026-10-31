@@ -1,52 +1,25 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="author" content="Khatly">
-    <meta name="description" content="Loja de livros, Livros mais vendidos">
-    <meta name="keywords" content="livros, editora, escritor, vendedor">
-    <link rel="shortcut icon" href="{{url_for('static', filename='img/icon/book_icon.svg')}}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/styles_global.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/cadastrar_cliente/cadastrar_cliente.css')}}">
-    <title>Livros Mais Vendidos</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/livros_mais_vendidos/style.css') }}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% extends "base.html" %}
+{% import "_macros.html" as ui %}
+{% set tem_busca = true %}
 
-</head>
-<body>
-    <header>
-        <a href="./index.html">
-            <img src="{{url_for('static', filename='img/icon/vk_icon.svg')}}" alt="Logo" id="logo">
-        </a>
-    </header>
+{% block titulo %}Livros Mais Vendidos{% endblock %}
+{% block titulo_tela %}Livros Mais Vendidos{% endblock %}
 
-    <!-- V libras -->
-    <div vw class="enabled">
-        <div vw-access-button class="active"></div>
-        <div vw-plugin-wrapper>
-            <div class="vw-plugin-top-wrapper"></div>
+{% block conteudo %}
+{% set mais_vendido = livros|map(attribute='total_vendas')|map('float')|max if livros else 0 %}
+<div class="lista">
+    {% for livro in livros %}
+    <article class="card card--{{ loop.index0 % 4 + 1 }}" data-aba="vendidos">
+        {{ ui.capa(loop.index) }}
+        <div class="card__corpo">
+            <div class="card__topo"><span class="selo">{{ loop.index }}º lugar</span></div>
+            <h2 class="card__titulo">{{ livro.titulo }}</h2>
+            <p class="card__texto">{{ livro.total_vendas }} vendas</p>
+            {{ ui.progresso(ui.porcentagem(livro.total_vendas, mais_vendido)) }}
         </div>
-    </div>
-    <h1>Livros Mais Vendidos</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Título</th>
-                <th>Total de Vendas</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for livro in livros %}
-            <tr>
-                <td>{{ livro.titulo }}</td>
-                <td>{{ livro.total_vendas }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <button onclick="window.location.href='/';">Voltar</button>
-</body>
-</html>
+    </article>
+    {% else %}
+    <p class="vazio">Ainda não há vendas registradas.</p>
+    {% endfor %}
+</div>
+{% endblock %}

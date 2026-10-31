@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% import "_macros.html" as ui %}
+
+{% block titulo %}Relatório de vendedores{% endblock %}
+{% block titulo_tela %}Relatório de vendedores{% endblock %}
+
+{% block conteudo %}
+<form class="form form--duplo" method="post" action="{{ acao }}">
+    {{ ui.campo('id_vendedor', 'ID do vendedor', placeholder='ID') }}
+    {{ ui.campo('data_inicial', 'Data Inicial', 'date') }}
+    {{ ui.campo('data_final', 'Data Final', 'date') }}
+    <div class="form__fim"><button class="botao" type="submit">Gerar Relatório</button></div>
+</form>
+
+<section class="secao">
+    <h2 class="secao__titulo">Relatório de vendas dos funcionários</h2>
+    {% call ui.tabela(['ID', 'Nome do vendedor', 'Numero de vendas', 'Quantidade de livros vendidos', 'Valor das vendas']) %}
+        {% for relatorio in relatorio_vendedor %}
+        <tr>
+            <td data-rotulo="ID">{{ relatorio[0] }}</td>
+            <td data-rotulo="Nome do vendedor">{{ relatorio[1] }}</td>
+            <td data-rotulo="Numero de vendas">{{ relatorio[2] }}</td>
+            <td data-rotulo="Quantidade de livros vendidos">{{ relatorio[3] }}</td>
+            <td data-rotulo="Valor das vendas">{{ relatorio[4] }}</td>
+        </tr>
+        {% endfor %}
+    {% endcall %}
+</section>
+{% endblock %}

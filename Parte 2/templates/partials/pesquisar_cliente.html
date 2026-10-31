@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% import "_macros.html" as ui %}
+
+{% block titulo %}Pesquisar cliente{% endblock %}
+{% block titulo_tela %}Pesquisar cliente{% endblock %}
+
+{% block conteudo %}
+<form class="form form--linha" method="POST" action="{{ acao }}">
+    {{ ui.campo('nome_cliente', 'Nome', placeholder='nome do cliente') }}
+    <button class="botao" type="submit">Pesquisar</button>
+</form>
+
+{% call ui.tabela(['ID', 'Nome', 'CPF', 'Telefone', 'Email']) %}
+    {% for clientes in cliente %}
+    <tr>
+        <td data-rotulo="ID">{{ clientes[0] }}</td>
+        <td data-rotulo="Nome">{{ clientes[1] }}</td>
+        <td data-rotulo="CPF">{{ clientes[2] }}</td>
+        <td data-rotulo="Telefone">{{ clientes[3] }}</td>
+        <td data-rotulo="Email">{{ clientes[4] }}</td>
+    </tr>
+    {% endfor %}
+{% endcall %}
+{% endblock %}

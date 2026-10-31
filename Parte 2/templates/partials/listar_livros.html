@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% import "_macros.html" as ui %}
+{% set tem_busca = livro is defined %}
+
+{% block titulo %}Livros cadastrados{% endblock %}
+{% block titulo_tela %}Livros cadastrados{% endblock %}
+
+{% block conteudo %}
+{% if livro %}
+{{ ui.abas([(1, 'Fantasia'), (2, 'Ficção Científica'), (3, 'Educação')]) }}
+{% set maior_estoque = livro|map(attribute=5)|max %}
+<div class="lista">
+    {% for livros in livro %}{{ ui.card_livro(livros, loop.index, maior_estoque) }}{% endfor %}
+</div>
+{% endif %}
+
+<form class="acoes" method="get" action="{{ acao }}">
+    <button class="botao" type="submit">Obter livros cadastrados</button>
+</form>
+{% endblock %}

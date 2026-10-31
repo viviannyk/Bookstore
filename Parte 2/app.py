@@ -13,15 +13,33 @@ app.secret_key = '12345'
 ############################################## ROTAS DO CLIENTE ##############################################
 ##############################################################################################################
 
+# A home continua abrindo mesmo com o banco fora do ar, só que sem o catálogo
+def buscar_livros_home():
+    try:
+        conexao = mysql.connector.connect(
+            host = 'localhost',
+            user = 'root',
+            password = 'niojo123',
+            database = 'livraria_bd',
+        )
+        cursor = conexao.cursor()
+        sql = f'SELECT * FROM livro' #READ
+        cursor.execute(sql)
+        resultado = cursor.fetchall() # Ler o banco de dados
+        conexao.close()
+        return resultado
+    except mysql.connector.Error:
+        return []
+
 @app.route("/")
 def home():
     session["produtos"] = []
-    return render_template("index.html")
+    return render_template("index.html", livros = buscar_livros_home())
 
 
 @app.route("/index.html")
 def home_():
-    return(render_template("index.html"))
+    return(render_template("index.html", livros = buscar_livros_home()))
 
 @app.route('/login_and_register.html', methods=['GET'])
 def login_screen():

@@ -1,0 +1,84 @@
+{% import "_macros.html" as ui %}
+{% set papel = papel|default('publico') %}
+{% set painel = {'cliente': '/homepage_cliente.html', 'vendedor': '/homepage_vendedor.html', 'admin': '/homepage_admin.html', 'publico': '/'}[papel] %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Khatly">
+    <meta name="description" content="Bookstore, livros de A a Z">
+    <meta name="keywords" content="livros, editora, escritor">
+    <title>{% block titulo %}Bookstore{% endblock %}</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/icon/vk_icon.svg') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bookstore.css') }}">
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+    <svg width="0" height="0" hidden>
+        <symbol id="i-menu" viewBox="0 0 26 26"><path d="M3 6h13M3 13h21M13 20h11"/></symbol>
+        <symbol id="i-busca" viewBox="0 0 26 26"><circle cx="11.500" cy="11.500" r="8.500"/><path d="m18 18 6 6"/></symbol>
+        <symbol id="i-marcador" viewBox="0 0 26 26"><path d="M6 3h14v21l-7-5-7 5Z"/></symbol>
+        <symbol id="i-seta" viewBox="0 0 16 16"><path d="m5 2 6 6-6 6"/></symbol>
+        <symbol id="i-voltar" viewBox="0 0 16 16"><path d="m11 2-6 6 6 6"/></symbol>
+        <symbol id="i-fechar" viewBox="0 0 26 26"><path d="m5 5 16 16M21 5 5 21"/></symbol>
+    </svg>
+
+    <!-- V libras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
+    {{ ui.barra(papel, painel, request.path, tem_busca|default(false)) }}
+
+    {% block palco %}
+    <main class="pagina {% block tela_classe %}{% endblock %}">
+        <h1 class="pagina__titulo">{% block titulo_tela %}{% endblock %}</h1>
+        {% block conteudo %}{% endblock %}
+        {% block voltar %}
+        <a class="voltar" href="{{ painel }}">{{ ui.icone('i-voltar') }} Voltar</a>
+        {% endblock %}
+    </main>
+    {% endblock %}
+
+    <footer class="rodape">
+        <div class="rodape__interno">
+            <div>
+                <p class="rodape__marca">Bookstore</p>
+                <p>Os Livros nos dão asas para voar a lugares altos, supreendentes e inesquecíveis</p>
+            </div>
+            <ul class="rodape__links">
+                <li><a href="{{ url_for('livros_mais_vendidos') }}">Mais vendidos</a></li>
+                <li><a href="/homepage_vendedor.html">Serviços</a></li>
+                <li><a href="/homepage_admin.html">Administração</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <nav class="menu" id="menu" aria-label="Menu principal">
+        <div class="menu__painel">
+            <button class="icone-btn" id="btn_fechar_menu" type="button" aria-label="Fechar menu">{{ ui.icone('i-fechar') }}</button>
+            <p class="menu__titulo">Bookstore</p>
+            {{ ui.links_nav(papel, request.path) }}
+        </div>
+    </nav>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    {% block scripts %}{% endblock %}
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,134 @@
+{% set categorias = {1: 'Fantasia', 2: 'Ficção Científica', 3: 'Educação'} %}
+
+{% macro icone(nome, classe='') %}
+<svg class="icone {{ classe }}" aria-hidden="true"><use href="#{{ nome }}"></use></svg>
+{% endmacro %}
+
+{% macro links_nav(papel, atual) %}
+{% set itens = {
+    'admin': [('/homepage_admin.html', 'Painel'), ('/listar_all_clientes_admin.html', 'Clientes'), ('/listar_all_livros_admin.html', 'Livros'), ('/Gerar_relatorio_admin.html', 'Relatório'), ('/', 'Sair')],
+    'vendedor': [('/homepage_vendedor.html', 'Painel'), ('/listar_all_clientes_vendedor.html', 'Clientes'), ('/listar_all_livros_vendedor.html', 'Livros'), ('/Gerar_relatorio_vendedores.html', 'Relatório'), ('/', 'Sair')],
+    'cliente': [('/homepage_cliente.html', 'Minha conta'), ('/Realizar_Compra.html', 'Comprar'), ('/Historico_De_Compras.html', 'Histórico'), ('/Alterar_dados_cliente.html', 'Dados pessoais'), ('/', 'Sair')],
+    'publico': [('/', 'Home'), ('/#livros', 'Livros'), (url_for('livros_mais_vendidos'), 'Mais vendidos'), ('/#sobre', 'Sobre'), ('/login_and_register.html', 'Login | Sign up')]
+}[papel] %}
+<ul>
+    {% for href, rotulo in itens %}
+    <li><a href="{{ href }}" {% if href == atual %}aria-current="page"{% endif %}>{{ rotulo }}</a></li>
+    {% endfor %}
+</ul>
+{% endmacro %}
+
+{% macro barra(papel, painel, atual, tem_busca=false) %}
+<header class="barra">
+    <div class="barra__interna">
+        <button class="icone-btn barra__menu" id="btn_mobile" type="button" aria-label="Abrir menu" aria-haspopup="true"
+            aria-controls="menu" aria-expanded="false">{{ icone('i-menu') }}</button>
+        <a class="logo" href="{{ painel }}">
+            <span>Bookstore</span>
+        </a>
+        <nav class="barra__links" aria-label="Menu principal">{{ links_nav(papel, atual) }}</nav>
+        <div class="barra__acoes">
+            {% if tem_busca %}
+            <div class="busca" id="caixa_busca">
+                <input class="entrada" id="busca_cards" type="search" placeholder="Pesquisar" aria-label="Pesquisar nesta página">
+            </div>
+            <button class="icone-btn barra__lupa" id="btn_busca" type="button" aria-label="Pesquisar nesta página"
+                aria-controls="caixa_busca">{{ icone('i-busca') }}</button>
+            {% endif %}
+            <a class="icone-btn" href="{{ url_for('livros_mais_vendidos') }}" aria-label="Livros mais vendidos">{{ icone('i-marcador') }}</a>
+        </div>
+    </div>
+</header>
+{% endmacro %}
+
+{% macro abas(itens, todos=true) %}
+<div class="abas">
+    {% if todos %}<button class="aba" type="button" data-alvo="todos" aria-pressed="true">Todos</button>{% endif %}
+    {% for valor, rotulo in itens %}
+    <button class="aba" type="button" data-alvo="{{ valor }}" aria-pressed="{{ 'true' if loop.first and not todos else 'false' }}">{{ rotulo }}</button>
+    {% endfor %}
+</div>
+{% endmacro %}
+
+{% macro nome_categoria(id) -%}
+{{ categorias[id] }}
+{%- endmacro %}
+
+{% macro capa(n) %}
+<img class="card__capa" src="{{ url_for('static', filename='img/capas/capa_' ~ ((n - 1) % 4 + 1) ~ '.svg') }}" alt="" width="85" height="110">
+{% endmacro %}
+
+{% macro progresso(valor) %}
+<div class="progresso" aria-hidden="true"><span style="width: {{ valor }}%"></span></div>
+{% endmacro %}
+
+{# Card de navegação: leva para outra página #}
+{% macro card_link(href, selo, titulo, texto, n, aba='', valor=42) %}
+<a class="card card--{{ (n - 1) % 4 + 1 }}" href="{{ href }}" {% if aba %}data-aba="{{ aba }}"{% endif %}>
+    {{ capa(n) }}
+    <div class="card__corpo">
+        <div class="card__topo">
+            <span class="selo">{{ selo }}</span>
+            {{ icone('i-seta', 'card__seta') }}
+        </div>
+        <h2 class="card__titulo">{{ titulo }}</h2>
+        <p class="card__texto">{{ texto }}</p>
+        {{ progresso(valor) }}
+    </div>
+</a>
+{% endmacro %}
+
+{# Card de livro. As linhas seguem a tabela livro: id, id_categoria, nome, preco, local_fabricacao, quantidade_estoq #}
+{% macro card_livro(livro, n, estoque_max) %}
+<article class="card card--{{ (n - 1) % 4 + 1 }}" data-aba="{{ livro[1] }}">
+    {{ capa(n) }}
+    <div class="card__corpo">
+        <div class="card__topo"><span class="selo">{{ categorias[livro[1]] }}</span></div>
+        <h2 class="card__titulo">{{ livro[2] }}</h2>
+        <p class="card__texto">R$ {{ livro[3]|round(2) }} · {{ livro[4] }}<br>ID {{ livro[0] }} · {{ livro[5] }} em estoque</p>
+        {{ progresso(porcentagem(livro[5], estoque_max)) }}
+    </div>
+</article>
+{% endmacro %}
+
+{# Evita divisão por zero quando não há estoque ou vendas #}
+{% macro porcentagem(valor, maximo) -%}
+{{ ((valor|float / maximo|float * 100)|round|int) if maximo|float > 0 else 0 }}
+{%- endmacro %}
+
+{% macro campo(nome, rotulo, tipo='text', obrigatorio=true, placeholder=none, mascara=none, id=none, extra='') %}
+<label class="campo">
+    <span class="campo__rotulo">{{ rotulo }}</span>
+    <input class="entrada" type="{{ tipo }}" name="{{ nome }}" placeholder="{{ placeholder if placeholder is not none else rotulo }}"
+        {% if id %}id="{{ id }}"{% endif %} {% if obrigatorio %}required{% endif %}
+        {% if mascara %}data-mascara="{{ mascara }}"{% endif %} {{ extra|safe }}>
+</label>
+{% endmacro %}
+
+{% macro select_categoria(nome, rotulo, com_nenhum=false) %}
+<label class="campo">
+    <span class="campo__rotulo">{{ rotulo }}</span>
+    <select class="entrada" name="{{ nome }}">
+        {% if com_nenhum %}<option value="0">Nenhum</option>{% endif %}
+        <option value="1">Fantasia</option>
+        <option value="2">Ficção científica</option>
+        <option value="3">Educação</option>
+    </select>
+</label>
+{% endmacro %}
+
+{# colunas: lista de títulos; as linhas vêm no caller, e cada <td> repete o título em data-rotulo para o layout mobile #}
+{% macro tabela(colunas) %}
+<div class="tabela-caixa">
+    <table class="tabela">
+        <thead>
+            <tr>
+                {% for coluna in colunas %}<th>{{ coluna }}</th>{% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {{ caller() }}
+        </tbody>
+    </table>
+</div>
+{% endmacro %}

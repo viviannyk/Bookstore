@@ -1,67 +1,22 @@
-<!DOCTYPE html>
-<html lang="pt_BR">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu site Teste</title>
-</head>
-<body>
-    <style> body{
-        margin: 0px;
-        background-color: #fef7e1;
-    }
-    </style>
-    <div>
-        <p class="titulo">Livraria</p>
-        <p class="titulo">Painel do Vendedor</p>
-        <style>
-            p{
-                color: white;
-                size: 50px;
-                background-color: #e2aa87;
-                margin: 0px;
-                text-align: center;
-                padding: 50px ;
-                border-radius: 0px;
-                font-size: 80px;
-                border: 10px;
-            }
-        </style>
-    </div>
+{% extends "base.html" %}
+{% import "_macros.html" as ui %}
+{% set papel = 'vendedor' %}
+{% set tem_busca = true %}
 
-    <div class="opções">
-        <a href="Cadastrar_cliente_vendedor.html">Cadastrar cliente</a>
-        <a href="Pesquisar_cliente_vendedor.html">Pesquisar cliente</a>
-        <a href="listar_all_clientes_vendedor.html">Listar todos os clientes cadastrados</a>
-        
-        <a href="Pesquisar_livro_vendedor.html">Pesquisar livro</a>
-        <a href="listar_all_livros_vendedor.html">Listar todos os livros cadastrados</a>
-        <a href="Gerar_relatorio_vendedores.html">Gerar Relatório de Vendedores</a><br>
-        <a href="/">Sair</a>
+{% block titulo %}Painel do Vendedor{% endblock %}
+{% block titulo_tela %}Painel do Vendedor{% endblock %}
 
-        <style>
-            .opções{
-                margin: 2rem;
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
-            }
+{% block conteudo %}
+{{ ui.abas([('clientes', 'Clientes'), ('livros', 'Livros'), ('relatorios', 'Relatórios')]) }}
+<div class="lista">
+    {{ ui.card_link('Cadastrar_cliente_vendedor.html', 'Clientes', 'Cadastrar cliente', 'Inclua um novo cliente no sistema.', 1, 'clientes') }}
+    {{ ui.card_link('Pesquisar_cliente_vendedor.html', 'Clientes', 'Pesquisar cliente', 'Encontre um cliente pelo nome.', 2, 'clientes') }}
+    {{ ui.card_link('listar_all_clientes_vendedor.html', 'Clientes', 'Listar clientes', 'Todos os clientes cadastrados.', 3, 'clientes') }}
+    {{ ui.card_link('Pesquisar_livro_vendedor.html', 'Livros', 'Pesquisar livro', 'Filtre por nome, preço, local e categoria.', 4, 'livros') }}
+    {{ ui.card_link('listar_all_livros_vendedor.html', 'Livros', 'Listar livros', 'Todos os livros cadastrados.', 1, 'livros') }}
+    {{ ui.card_link('Gerar_relatorio_vendedores.html', 'Relatórios', 'Relatório de Vendedores', 'Vendas por vendedor em um período.', 2, 'relatorios') }}
+</div>
+<div class="acoes"><a class="botao botao--suave" href="/">Sair</a></div>
+{% endblock %}
 
-            a{
-                color: white;
-                background-color: #ef8e7d;
-                padding: 2rem;
-                margin: 30px;
-                text-align: center;
-                font-size: 2rem;
-                text-decoration: none;
-                border-radius: 20px;
-                transition: 0.3s;
-            }
-            a:hover{
-                background-color: #c57667;
-            }
-        </style>
-    </div>
-</body>
-</html>
+{% block voltar %}{% endblock %}
