@@ -957,40 +957,40 @@ def finalizar_compra():
     )
     cursor = conexao.cursor()
     
-    for i in produtos:
-        valores = (id_cliente, int(i[1]),int(i[2]),int(i[0]),int(i[3]))
-        try:
+    try:
+        # Grava todos os itens do carrinho em uma única transação
+        for i in produtos:
+            valores = (id_cliente, int(i[1]),int(i[2]),int(i[0]),int(i[3]))
             sql = '''CALL realizar_compra(%d,%d,%d,%d,%d,CURRENT_DATE())'''%valores #READ
             cursor.execute(sql)
-            conexao.commit()
-            session["produtos"] = []
-            session["valor_total"] = 0.0
-            sql = f'CALL historico_de_compras(%s)' #READ
-            id_cliente = session.get('id_cliente')
-            valores = (id_cliente)
-            cursor.execute(sql, (valores , ))
-            resultados = cursor.fetchall() # Ler o banco de dados
-            conexao.close()
-            return render_template("Pages_cliente/Historico_de_Compras.html",  resultados = resultados)
-        except:
-            flash("Não tem livros suficiente no estoque!")
-            session["produtos"] = []
-            session["valor_total"] = 0.0
-            cursor = conexao.cursor()
-            sql = f'SELECT * FROM livro' #READ
-            cursor.execute(sql)
-            livros = cursor.fetchall() # Ler o banco de dados
-            sql = f'SELECT * FROM pagamento' #READ
-            cursor.execute(sql)
-            pagamentos = cursor.fetchall() # Ler o banco de dados
-            sql = f'SELECT * FROM vendedor' #READ
-            cursor.execute(sql)
-            vendedores = cursor.fetchall() # Ler o banco de dados
-            conexao.close()
-            return render_template("Pages_cliente/Realizar_Compra.html",livros=livros, pagamentos=pagamentos, vendedores=vendedores)
-    
-            return render_template("Pages_cliente/Historico_de_Compras.html", resultados=resultados)
-        
+        conexao.commit()
+    except:
+        conexao.rollback()
+        flash("Não tem livros suficiente no estoque!")
+        session["produtos"] = []
+        session["valor_total"] = 0.0
+        cursor = conexao.cursor()
+        sql = f'SELECT * FROM livro' #READ
+        cursor.execute(sql)
+        livros = cursor.fetchall() # Ler o banco de dados
+        sql = f'SELECT * FROM pagamento' #READ
+        cursor.execute(sql)
+        pagamentos = cursor.fetchall() # Ler o banco de dados
+        sql = f'SELECT * FROM vendedor' #READ
+        cursor.execute(sql)
+        vendedores = cursor.fetchall() # Ler o banco de dados
+        conexao.close()
+        return render_template("Pages_cliente/Realizar_Compra.html",livros=livros, pagamentos=pagamentos, vendedores=vendedores)
+
+    session["produtos"] = []
+    session["valor_total"] = 0.0
+    sql = f'CALL historico_de_compras(%s)' #READ
+    valores = (id_cliente)
+    cursor.execute(sql, (valores , ))
+    resultados = cursor.fetchall() # Ler o banco de dados
+    conexao.close()
+    return render_template("Pages_cliente/Historico_de_Compras.html",  resultados = resultados)
+
 @app.route("/livros_mais_vendidos")
 def livros_mais_vendidos():
     conexao = mysql.connector.connect(
